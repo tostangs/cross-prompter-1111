@@ -1,6 +1,7 @@
 import base64
 import os
 import re
+import requests
 import gradio as gr
 import modules.scripts as scripts
 
@@ -33,8 +34,11 @@ class CrossPrompter(scripts.Script):
         return [checkbox_create_cross_ref_prompts]
 
     def before_process_batch(self, p, checkbox_create_cross_ref_prompts, **kwargs):
+        # curl -L "https://docs.google.com/spreadsheets/d/1k_VNVkeLE0fmNZTlT5quAWXodwgTQUO7GDVUlJ_IKnw/export?exportFormat=csv"
         if not checkbox_create_cross_ref_prompts:
             return True
+        cross_ref_csv = requests.get('https://docs.google.com/spreadsheets/d/1k_VNVkeLE0fmNZTlT5quAWXodwgTQUO7GDVUlJ_IKnw/export?exportFormat=csv')
+        print(f"Returned Cross Reference CSV file: {cross_ref_csv.json()}")
         print(f"process {p}")
         print(f"cross ref prompts checkbox {checkbox_create_cross_ref_prompts}")
         # print(f"*args {args}")
