@@ -13,11 +13,6 @@ from modules.processing import process_images, Processed
 aws_secret_access_key = os.environ.get('AWS_SECRET_ACCESS_KEY', '')
 aws_access_key_id = os.environ.get('AWS_ACCESS_KEY_ID', '')
 
-boto3_session = boto3.Session(
-    aws_access_key_id=aws_access_key_id,
-    aws_secret_access_key=aws_secret_access_key
-)
-
 s3_client = boto3_session.client('s3')
 
 class CrossPrompter(scripts.Script):
